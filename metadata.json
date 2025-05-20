@@ -1,0 +1,77 @@
+{
+  "nomor_putusan": "171/Pid.Sus/2024/PN Gpr",
+  "nomor_perkara": "171/Pid.Sus/2024/PN Gpr",
+  "tanggal_putusan": {
+    "diucapkan": "Senin, 23 September 2024",
+    "diputuskan": "Kamis, 19 September 2024"
+  },
+  "pengadilan": "Pengadilan Negeri Kabupaten Kediri",
+  "nama_terdakwa": "RIZAL ADITIYAWAN BASUKI UTOMO BIN (Alm.) NANANG BASUKI",
+  "tempat_tanggal_lahir": {
+    "tempat": "Kediri",
+    "tanggal": "27 Mei 2003",
+    "umur": "20 tahun"
+  },
+  "jenis_kelamin": "Laki-laki",
+  "kebangsaan": "Indonesia",
+  "agama": "Islam",
+  "pekerjaan": "Swasta",
+  "tempat_tinggal": "Jl. Letjen Hariyono 39D, RT. 034/RW. 007, Kel. Singonegaran, Kec. Pesantren, Kota Kediri, Jawa Timur",
+  "tanggal_penangkapan": "17 April 2024",
+  "masa_penahanan": [
+    { 
+      "oleh": "Penyidik",        
+      "periode": "18 Apr – 7 Mei 2024" 
+    },
+    { 
+      "oleh": "Penuntut Umum",   
+      "periode": "8 Mei – 16 Jun 2024" 
+    },
+    { 
+      "oleh": "Wakil Ketua PN",  
+      "periode": "17 Jun – 16 Jul 2024" 
+    },
+    { 
+      "oleh": "Penuntut Umum",   
+      "periode": "1 Jul – 20 Jul 2024" 
+    },
+    { 
+      "oleh": "Hakim",           
+      "periode": "18 Jul – 16 Agu 2024" 
+    },
+    { 
+      "oleh": "Ketua PN",        
+      "periode": "17 Agu – 15 Okt 2024" 
+    }
+  ],
+  "penasihat_hukum": "Rinni Puspita Sari, S.H., M.H., dkk. (POSBAKUM PN Kediri)",
+  "hakim": {
+    "ketua": "Dwiyantoro, S.H.",
+    "anggota": [
+      "Kiki Yuristian, S.H., M.H.",
+      "Ika Yustikasari, S.H."
+    ]
+  },
+  "panitera": "Gita Triyanto N., S.E., S.H., M.H. (Panitera Pengganti)",
+  "penuntut_umum": "Nanda Yoga Rohmana, S.H., M.H.",
+  "tuntutan_pidana": [
+    "Menyatakan terbukti melakukan tindak pidana “Memproduksi atau mengedarkan Sediaan Farmasi dan/atau Alat Kesehatan yang tidak memenuhi standar…”",
+    "Menjatuhkan pidana penjara 5 (lima) tahun (dikurangi masa tahanan)",
+    "Menyatakan barang bukti dirampas untuk dimusnahkan",
+    "Memerintahkan membayar biaya perkara Rp 5.000,-"
+  ],
+  "tuntutan_kuhp": [
+    "Pasal 60 jo. Pasal 106 ayat (1)&(2) UU Cipta Kerja",
+    "Pasal 435 jo. Pasal 138 ayat (2)&(3) UU No.17/2023 tentang Kesehatan",
+    "Pasal 436 ayat (2) jo. Pasal 145 ayat (1) UU No.17/2023"
+  ],
+  "tuntutan_hukuman": "Pidana penjara 5 (lima) tahun, dikurangi masa tahanan, dengan perintah tetap ditahan; biaya perkara Rp 5.000,-",
+  "putusan_pidana": "Menjatuhkan pidana penjara selama 4 (empat) tahun; dikurangi masa tahanan yang telah dijalani; Terdakwa tetap ditahan",
+  "putusan_hukuman": [
+    "Pidana penjara 4 tahun",
+    "Masa tahanan yang telah dijalani dikurangkan",
+    "Terdakwa tetap ditahan",
+    "Barang bukti dimusnahkan: Pil jenis LL × 985 butir; HP Android × 1 unit; Pil jenis LL × 8 butir (sisa laboratorium)",
+    "Biaya perkara Rp 5.000,-"
+  ]
+}
