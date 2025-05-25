@@ -1,11 +1,48 @@
 import pypdf
 import os
 import re
+import json
+import asyncio
+import aiofiles
 from typing import (
     List,
     Dict,
     Any,
+    Optional,
 )
+from pydantic import BaseModel, Field
+
+class Terdakwa(BaseModel):
+    nama_lengkap: Optional[str] = None
+    tempat_lahir: Optional[str] = None
+    umur: Optional[str] = None
+    jenis_kelamin: Optional[str] = None
+    kebangsaan: Optional[str] = None
+    tempat_tinggal: Optional[str] = None
+    agama: Optional[str] = None
+    pekerjaan: Optional[str] = None
+
+class TuntutanPidana(BaseModel):
+    tuntutan_pidana: str
+
+class ExtractedEntities(BaseModel):
+    nomor_putusan: Optional[str] = Field(None, alias="Nomor Putusan")
+    tanggal_putusan: Optional[str] = Field(None, alias="Tanggal Putusan")
+    informasi_terdakwa: Optional[List[Terdakwa]] = Field(None, alias="Informasi Terdakwa")
+    related_pasal: Optional[List[str]] = Field(None, alias="Related Pasal")
+    tuntutan_pidana: Optional[str] = Field(None, alias="Tuntutan Pidana")
+    tuntutan_hukuman: Optional[str] = Field(None, alias="Tuntutan Hukuman")
+    putusan_pidana: Optional[str] = Field(None, alias="Putusan Pidana")
+    putusan_hukuman: Optional[str] = Field(None, alias="Putusan Hukuman")
+    hakim_ketua: Optional[str] = Field(None, alias="Hakim Ketua")
+    hakim_anggota: Optional[str] = Field(None, alias="Hakim Anggota")
+    panitera: Optional[str] = Field(None, alias="Panitera")
+    
+    class Config:
+        populate_by_name = True
+        json_encoders = {
+            set: list
+        }
 
 class MetadataExtractorBSus:
     def __init__(self):
@@ -96,7 +133,7 @@ class MetadataExtractorBSus:
             return results
         return None
     
-    def normalizedPasal(self) -> str:
+    def normalizedPasal(self, pasal: str) -> str:
         """
         Normalisasi teks pasal untuk konsistensi.
         Menghapus spasi berlebih, mengubah ke huruf kecil,
@@ -277,11 +314,11 @@ if type_document == "bsus":
 else:
     raise ValueError("Unsupported document type. Please use 'bsus' for this extractor.")
 
-def readFile(file_path: str) -> str:
-    with open(file_path, "r", encoding="utf-8", errors="replace") as file:
-        return file.read()
+async def readFile(file_path: str) -> str:
+    async with aiofiles.open(file_path, "r", encoding="utf-8", errors="replace") as file:
+        return await file.read()
 
-def extractEntities(file_path: str) -> Dict[str, Any]:
+async def extractEntities(file_path: str) -> Dict[str, Any]:
     """
     Extracts the entity name from a file path using a regular expression.
     The function reads the content of the file, applies a regex pattern to find
@@ -290,7 +327,7 @@ def extractEntities(file_path: str) -> Dict[str, Any]:
     file_path (str): The path of txt file file.
 
     Returns:
-    str: The matched entity name.
+    Dict[str, Any]: JSON compatible dictionary with extracted entities.
     """
     entities = {
         "Nomor Putusan": None,
@@ -305,7 +342,7 @@ def extractEntities(file_path: str) -> Dict[str, Any]:
         "Hakim Anggota": None,
         "Panitera": None,
     }
-    extract_entities.content = readFile(file_path)
+    extract_entities.content = await readFile(file_path)
 
     nomor_putusan = extract_entities.nomorPutusan()
     if nomor_putusan: entities["Nomor Putusan"] = nomor_putusan
@@ -339,13 +376,17 @@ def extractEntities(file_path: str) -> Dict[str, Any]:
 
     panitera = extract_entities.paniteraPengganti()
     if panitera: entities["Panitera"] = panitera    
-        
-    return entities
+    
+    # Validate using Pydantic model
+    validated_entities = ExtractedEntities(**entities)
+    return validated_entities.model_dump(by_alias=True)
+
+async def main():
+    print("Metadata Extractor for BSus")
+    file_path = "samples/final_output_asli.txt"
+    extracted_entities = await extractEntities(file_path)
+    print("Hasil ekstraksi:")
+    print(json.dumps(extracted_entities, indent=2, ensure_ascii=False))
 
 if __name__ == "__main__":
-    print("Metadata Extractor for BSus")
-    file_path = "samples/171.Pid.Sus.2024.PN.Gpr.txt"
-    extracted_entities = extractEntities(file_path)
-    print("Hasil ekstraksi:")
-    for key, value in extracted_entities.items():
-        print(f"  {key}: {value}")
+    asyncio.run(main())
